@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Slot KPI Monitor</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <div class="logo">🎰</div>
+            <div>
+                <h1>Slot KPI Monitor</h1>
+                <p class="sub">Turnover • Wins • RTP • GGR • Availability • Escalation • Notes</p>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="btnAddRow" class="btn">+ Add row</button>
+            <button id="btnLoadSample" class="btn btn-secondary">Load sample</button>
+            <button id="btnExport" class="btn btn-secondary">Export CSV</button>
+            <button id="btnClear" class="btn btn-danger">Clear</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="panel">
+            <div class="panel-head">
+                <h2>Rules</h2>
+                <div class="chips">
+                    <span class="chip chip-warn">RTP &gt; 98% = Monitor / Alert</span>
+                    <span class="chip chip-bad">RTP &lt; 90% = Low RTP</span>
+                    <span class="chip chip-bad">Availability &lt; 99% = Tech risk</span>
+                    <span class="chip chip-ok">Escalate = RTP ALERT + GGR Weak</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-head row">
+                <h2>Daily KPI Table</h2>
+                <div class="filters">
+                    <label>
+                        Filter Game:
+                        <select id="gameFilter">
+                            <option value="__all__">All</option>
+                        </select>
+                    </label>
+                    <label>
+                        Search Notes:
+                        <input id="noteSearch" type="text" placeholder="type to search..." />
+                    </label>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table id="kpiTable">
+                    <thead>
+                        <tr>
+                            <th style="min-width:125px;">Date</th>
+                            <th style="min-width:140px;">Game Name</th>
+                            <th class="num">Turnover</th>
+                            <th class="num">Wins (0–9)</th>
+                            <th class="num">Availability</th>
+                            <th class="num">RTP</th>
+                            <th class="num">GGR</th>
+                            <th>RTP Status</th>
+                            <th>GGR Status</th>
+                            <th>Escalation</th>
+                            <th style="min-width:380px;">Notes/Reports</th>
+                            <th style="min-width:70px;">Del</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
+
+            <p class="hint">
+                Tip: RTP = Wins / Turnover. GGR = Turnover - Wins.
+                Availability accepts <b>99.8</b> or <b>99.8%</b>.
+            </p>
+        </section>
+
+        <section class="panel">
+            <div class="panel-head">
+                <h2>Summary (per slot)</h2>
+                <p class="sub">Totals and average RTP by game for currently visible rows (filter/search applied).</p>
+            </div>
+            <div class="table-wrap">
+                <table id="summaryTable">
+                    <thead>
+                        <tr>
+                            <th>Game</th>
+                            <th class="num">Days</th>
+                            <th class="num">Total Turnover</th>
+                            <th class="num">Total Wins</th>
+                            <th class="num">Total GGR</th>
+                            <th class="num">Avg RTP</th>
+                            <th class="num">Min Availability</th>
+                            <th>Any Escalation?</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summaryBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <span>Built for daily Junior Slot Manager KPI practice.</span>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
